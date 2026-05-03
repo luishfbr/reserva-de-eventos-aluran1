@@ -2,6 +2,8 @@ package com.example.reservadeeventosaluran1.controller;
 
 import com.example.reservadeeventosaluran1.database.model.UsuariosEntity;
 import com.example.reservadeeventosaluran1.dto.UsuarioDto;
+import com.example.reservadeeventosaluran1.exception.BadRequestException;
+import com.example.reservadeeventosaluran1.exception.NotFoundException;
 import com.example.reservadeeventosaluran1.service.UsuariosService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,25 +30,25 @@ public class UsuariosController {
 
     @GetMapping("/{email}")
     @ResponseStatus(HttpStatus.OK)
-    public List<UsuariosEntity> findAllByEmail(@PathVariable String email) {
-        return usuariosService.findAllByEmail(email);
+    public UsuariosEntity findByEmail(@PathVariable String email) {
+        return usuariosService.findByEmail(email);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void  insert(@Valid @RequestBody UsuarioDto usuarioDto) {
+    public void  insert(@Valid @RequestBody UsuarioDto usuarioDto) throws BadRequestException {
         usuariosService.insert(usuarioDto);
     }
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void  update(@Valid @RequestBody UsuarioDto usuarioDto, @PathVariable UUID id) {
+    public void  update(@Valid @RequestBody UsuarioDto usuarioDto, @PathVariable UUID id) throws NotFoundException {
         usuariosService.update(usuarioDto, id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable UUID id) {
+    public void delete(@PathVariable UUID id) throws NotFoundException {
         usuariosService.delete(id);
     }
 }

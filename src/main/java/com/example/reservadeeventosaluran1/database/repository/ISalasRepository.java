@@ -8,5 +8,5 @@ import java.util.UUID;
 
 public interface ISalasRepository extends JpaRepository<SalasEntity, UUID> {
 
-    List<SalasEntity> findAllBySlug(String slug);
+    SalasEntity findBySlug(String slug);
 }

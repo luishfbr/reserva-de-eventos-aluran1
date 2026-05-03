@@ -2,6 +2,8 @@ package com.example.reservadeeventosaluran1.controller;
 
 import com.example.reservadeeventosaluran1.database.model.SalasEntity;
 import com.example.reservadeeventosaluran1.dto.SalaDto;
+import com.example.reservadeeventosaluran1.exception.BadRequestException;
+import com.example.reservadeeventosaluran1.exception.NotFoundException;
 import com.example.reservadeeventosaluran1.service.SalasService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,25 +30,25 @@ public class SalasController {
 
     @GetMapping("/{slug}")
     @ResponseStatus(HttpStatus.OK)
-    public List<SalasEntity> findAllBySlug(@PathVariable String slug) {
-        return salasService.findAllBySlug(slug);
+    public SalasEntity findBySlug(@PathVariable String slug) {
+        return salasService.findBySlug(slug);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void  insert(@Valid @RequestBody SalaDto salaDto) {
+    public void  insert(@Valid @RequestBody SalaDto salaDto) throws BadRequestException {
         salasService.insert(salaDto);
     }
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void  update(@Valid @RequestBody SalaDto salaDto, @PathVariable UUID id) {
+    public void  update(@Valid @RequestBody SalaDto salaDto, @PathVariable UUID id) throws NotFoundException {
         salasService.update(salaDto, id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable UUID id) {
+    public void delete(@PathVariable UUID id) throws NotFoundException {
         salasService.delete(id);
     }
 }

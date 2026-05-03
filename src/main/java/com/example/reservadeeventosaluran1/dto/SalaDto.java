@@ -1,5 +1,6 @@
 package com.example.reservadeeventosaluran1.dto;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -15,7 +16,11 @@ public class SalaDto {
 
     @NotBlank
     private String nome;
+
     @NotNull
-    @Min(1)
+    @Min(value = 1, message = "Capacidade deve ser maior que zero.")
     private Integer capacidade;
+    
+    private Boolean ativo;
+
 }

@@ -1,5 +1,6 @@
 package com.example.reservadeeventosaluran1.database.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +24,9 @@ public class UsuariosEntity {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @OneToMany(mappedBy = "usuario")
+
+    // Lazy para que não seja carregado campos em excesso nas buscas por usuários
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<ReservasEntity> reservas = new HashSet<>();
 }
