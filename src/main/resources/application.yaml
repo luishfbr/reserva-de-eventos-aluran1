@@ -2,7 +2,7 @@ spring:
   application:
     name: reserva-de-eventos-aluran1
   datasource:
-    url: jdbc:postgresql://ep-empty-band-acorj4z0-pooler.sa-east-1.aws.neon.tech/neondb?sslmode=require&channelBinding=require
+    url: jdbc:postgresql://
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
   jpa:
